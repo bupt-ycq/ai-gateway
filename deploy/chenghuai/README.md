@@ -99,6 +99,31 @@ docker compose -f compose.yml -f compose.https.yml down
 
 管理账号、客户端令牌和上游 Key 各自独立。此部署不会附带上游余额或参考站业务数据。
 
+## 支付宝、微信模拟充值
+
+没有商户号也能体验充值流程。在钱包页中选择金额和“支付宝 / 微信”，创建演示订单，再模拟成功、失败或取消。页面会明确显示模拟状态，不会生成真实付款码或请求支付平台。
+
+**演示余额独立存储，不能用于真实模型调用。** 成功订单只增加演示余额；真实账户额度、真实充值记录和支付合规确认都不变。订单十分钟后过期，重复确认不会重复入账，每个用户只能查看和操作自己的订单。每笔支持 ¥1–¥1,000。
+
+该功能默认关闭，需要从当前源码构建（原版官方镜像不包含这项定制）。原生运行方式：
+
+```bash
+# 仓库根目录；需要 Bun、Go 和现有 Python 运行环境
+./deploy/chenghuai/build-local.sh
+python3 deploy/chenghuai/run-local.py stop
+python3 deploy/chenghuai/run-local.py start --demo-payments
+```
+
+登录 `http://127.0.0.1:3080/wallet`。关闭演示时停止后执行普通的 `run-local.py start`；已有演示记录会保留，但真实钱包不使用这些数据。
+
+Docker 用户在完成前面的初始化后，可在 `deploy/chenghuai` 执行：
+
+```bash
+docker compose -f compose.yml -f compose.demo.yml up -d --build --wait
+```
+
+恢复普通部署运行 `./start.sh`。`compose.demo.yml` 显式开启 `PAYMENT_DEMO_ENABLED=true`，普通部署不启用。将来真实收款仍需配置自己的支付商户和公网回调地址。
+
 ## 从源码构建镜像
 
 默认使用固定版本的官方镜像，不需要在宿主机安装 Go 或 Bun。如需将当前源码构建成镜像，在仓库根目录执行：

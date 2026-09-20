@@ -19,6 +19,24 @@
 - 尚未接入真实上游 API；模拟测试不代表真实模型可用性、输出质量或供应商计费结果。
 - 当前环境没有 Docker daemon，未实际启动 Compose 容器；公网 DNS、TLS 签发和支付渠道尚未部署验证。
 - 控制台数据属于独立新实例，未迁移参考站的用户、上游密钥、余额或订单。
-- 使用官方已构建前后端，通过配置还原页面；本轮未修改或重新编译 New API 核心代码。
+- 初始页面复刻使用官方已构建前后端；后续模拟充值功能修改了前后端，并从源码重新构建，验证范围见下文。
 
 浏览器截图和机器可读检查结果位于本机 `.local/previews/`，不包含在源码包中。复验方法见同目录 README。
+
+## 模拟充值增补验证
+
+- Go 模型、控制器和路由的 `TestDemoPayment*` 测试通过，涵盖金额校验、归属、过期、终态、并发幂等以及真实额度隔离。
+- 前端 11 项校验与交互测试通过，完整 TypeScript 检查、修改文件的 lint/format 检查和生产构建通过。
+- 源码 Go 二进制构建通过；`verify-demo-payment.py` 对临时实例验证支付宝/微信、错误请求、并发与重复处理、用户隔离、关闭开关后的 404，以及重启持久化。
+- 浏览器 `verify-demo-ui.py` 验证真实钱包页面的金额校验、两种模拟成功、失败/取消、桌面/小屏收银台和刷新后余额持久化。
+- 浏览器操作前后比较数据库，真实用户额度和支付合规确认均未改变；模拟测试没有调用支付商户或模型供应商。
+- 通过 `PAYMENT_DEMO_ENABLED` 显式启用；未开启时，模拟页面隐藏，后端接口返回 404。模拟金额不能用于真实调用或提现。
+
+复验命令（仓库根目录）：
+
+```bash
+go test -p 4 ./model ./controller ./router -run TestDemoPayment -count=1
+python3 deploy/chenghuai/verify-demo-payment.py
+# 需要已启动模拟实例、Playwright 和 Chromium；会新增四条演示订单
+.local/browser-env/bin/python deploy/chenghuai/verify-demo-ui.py
+```

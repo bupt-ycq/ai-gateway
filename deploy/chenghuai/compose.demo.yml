@@ -1,0 +1,9 @@
+# Optional local-only simulation; never add this override to a real payment service.
+services:
+  new-api:
+    image: chenghuai-new-api:demo
+    build:
+      context: ../..
+    environment:
+      PAYMENT_DEMO_ENABLED: "true"
+      VERSION: v1.0.0-rc.23-chenghuai

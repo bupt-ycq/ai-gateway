@@ -20,6 +20,7 @@ import urllib.request
 ROOT = Path(__file__).resolve().parents[2]
 LOCAL = ROOT / '.local'
 BINARY = LOCAL / 'bin' / 'new-api'
+DEMO_BINARY = LOCAL / 'bin' / 'new-api-demo'
 PID_FILE = LOCAL / 'server.pid'
 ENV_FILE = LOCAL / 'runtime-env.json'
 DATABASE = LOCAL / 'gateway.db'
@@ -50,7 +51,8 @@ def is_our_process(pid):
     try:
         proc = Path(f'/proc/{pid}')
         return (
-            (proc / 'exe').resolve(strict=True) == BINARY.resolve()
+            Path(os.readlink(proc / 'exe').removesuffix(' (deleted)'))
+            in {BINARY.resolve(), DEMO_BINARY.resolve()}
             and (proc / 'cwd').resolve(strict=True) == LOCAL.resolve()
             and process_environment(pid).get('SQLITE_PATH') == str(DATABASE)
         )
@@ -131,14 +133,24 @@ def print_running(pid):
         elif arg.startswith(('--port=', '-port=')):
             port = arg.split('=', 1)[1]
     print(f'Running: PID {pid}; http://localhost:{port}')
+    if process_environment(pid).get('PAYMENT_DEMO_ENABLED') == 'true':
+        print('Payment demo enabled: isolated test balance; no real payment or API credit.')
     print('Network: upstream listens on ALL interfaces; localhost is not an access restriction.')
     print(f'Database: {DATABASE}\nLog: {LOG}')
 
 
-def start(port):
-    ensure_binary()
+def start(port, demo_payments=False):
+    binary = DEMO_BINARY if demo_payments else BINARY
+    if demo_payments:
+        if not binary.is_file() or not os.access(binary, os.X_OK):
+            raise RuntimeError('Build the demo first: deploy/chenghuai/build-local.sh')
+    else:
+        ensure_binary()
     pid = running_pid()
     if pid:
+        current_demo = process_environment(pid).get('PAYMENT_DEMO_ENABLED') == 'true'
+        if current_demo != demo_payments:
+            raise RuntimeError('Stop the running instance before changing payment demo mode.')
         persistent_environment(pid)
         print_running(pid)
         return
@@ -150,11 +162,13 @@ def start(port):
     for key in ('SQL_DSN', 'LOG_SQL_DSN', 'REDIS_CONN_STRING'):
         env.pop(key, None)
     env.update(persistent_environment())
-    env.update(VERSION=VERSION, SQLITE_PATH=str(DATABASE), PORT=str(port))
+    env.update(VERSION=VERSION + ('-chenghuai' if demo_payments else ''),
+               SQLITE_PATH=str(DATABASE), PORT=str(port))
+    env['PAYMENT_DEMO_ENABLED'] = 'true' if demo_payments else 'false'
     (LOCAL / 'logs').mkdir(exist_ok=True)
     with LOG.open('ab') as log:
         process = subprocess.Popen(
-            [str(BINARY), '--port', str(port), '--log-dir', str(LOCAL / 'logs')],
+            [str(binary), '--port', str(port), '--log-dir', str(LOCAL / 'logs')],
             cwd=LOCAL, env=env, stdin=subprocess.DEVNULL,
             stdout=log, stderr=subprocess.STDOUT, start_new_session=True,
         )
@@ -203,6 +217,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=('start', 'stop', 'status'))
     parser.add_argument('--port', type=int, default=3080, help='Port for start (default: 3080).')
+    parser.add_argument('--demo-payments', action='store_true',
+                        help='Use the source-built binary with isolated payment simulation enabled.')
     args = parser.parse_args()
     if sys.version_info < (3, 11):
         parser.error('Python 3.11 or newer is required.')
@@ -210,12 +226,14 @@ def main():
         parser.error('This pinned binary supports Linux amd64 only.')
     if not 1 <= args.port <= 65535:
         parser.error('Port must be between 1 and 65535.')
+    if args.demo_payments and args.command != 'start':
+        parser.error('--demo-payments is only valid with start.')
     LOCAL.mkdir(mode=0o700, exist_ok=True)
     LOCAL.chmod(0o700)
     with (LOCAL / 'launcher.lock').open('w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         if args.command == 'start':
-            start(args.port)
+            start(args.port, args.demo_payments)
         elif args.command == 'stop':
             stop()
         else:
