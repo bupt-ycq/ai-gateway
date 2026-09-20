@@ -1,0 +1,6 @@
+.env
+data/
+caddy/
+backups/
+.local/
+__pycache__/

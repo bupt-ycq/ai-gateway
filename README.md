@@ -1,3 +1,5 @@
+> **骋怀AI模型网关定制版**：基于 New API `v1.0.0-rc.23`，包含定制首页、关于页和独立部署脚本。请先阅读 [定制版部署说明](deploy/chenghuai/README.md) 和 [验证记录](deploy/chenghuai/VERIFICATION.md)。下方保留上游项目说明与许可信息。
+
 <div align="center">
 
 ![new-api](/web/public/logo.png)

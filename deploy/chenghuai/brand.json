@@ -1,0 +1,9 @@
+{
+  "SystemName": "骋怀AI模型网关",
+  "Footer": "2026 安徽方控智能科技有限公司。保留版权。",
+  "Logo": "/pub/logo.png",
+  "DefaultCollapseSidebar": "false",
+  "HeaderNavModules": "",
+  "SidebarModulesAdmin": "{\"chat\":{\"enabled\":true,\"playground\":true,\"chat\":false},\"console\":{\"enabled\":true,\"detail\":true,\"token\":true,\"log\":true,\"midjourney\":true,\"task\":true},\"personal\":{\"enabled\":true,\"topup\":true,\"personal\":true},\"admin\":{\"enabled\":true,\"channel\":true,\"models\":true,\"redemption\":true,\"user\":true,\"setting\":true,\"subscription\":true}}",
+  "general_setting.quota_display_type": "CNY"
+}

@@ -1,0 +1,5 @@
+{$GATEWAY_DOMAIN} {
+    reverse_proxy new-api:3000 {
+        flush_interval -1
+    }
+}

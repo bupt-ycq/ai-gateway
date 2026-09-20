@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>骋怀 · AI 网关 | 一钥在手，骋怀万模</title>
+
+    <style>
+        .gateway-page {
+            --bg: #09090b;
+            --bg-soft: #0f0f12;
+            --card: rgba(255, 255, 255, 0.035);
+            --card-hover: rgba(255, 255, 255, 0.055);
+
+            --border: rgba(255, 255, 255, 0.10);
+            --border-light: rgba(255, 255, 255, 0.07);
+
+            --text: #f5f5f7;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+
+            --purple: #8b5cf6;
+            --purple-dark: #7c3aed;
+            --blue: #3b82f6;
+            --cyan: #06b6d4;
+
+            --green: #34d399;
+
+            --font-gufeng: "Noto Serif SC", "STSong", "SimSun", "Songti SC", serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        .gateway-page {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                "PingFang SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(circle at 50% -10%, rgba(124, 58, 237, 0.12), transparent 34%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        main { padding-top: 64px; }
+
+        .container { width: min(1180px, 90%); margin: 0 auto; }
+
+        .gradient-text {
+            display: inline-block;
+            background: linear-gradient(90deg, #7c3aed 0%, #8b5cf6 30%, #3b82f6 65%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            filter: drop-shadow(0 0 14px rgba(124, 58, 237, 0.18));
+        }
+
+        .gufeng { font-family: var(--font-gufeng); }
+
+        /* ========================= Hero ========================= */
+
+        .hero {
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 0 110px;
+            text-align: center;
+        }
+
+        .hero-content { max-width: 960px; margin: 0 auto; }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 7px 14px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.035);
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 28px;
+            font-family: var(--font-gufeng);
+            letter-spacing: 2px;
+        }
+
+        .status-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 12px rgba(52, 211, 153, 0.75);
+        }
+
+        .hero h1 {
+            font-family: var(--font-gufeng);
+            font-size: clamp(44px, 6.5vw, 80px);
+            line-height: 1.15;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 26px;
+        }
+
+        .hero-quote {
+            font-family: var(--font-gufeng);
+            color: var(--text-tertiary);
+            font-size: 15px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            max-width: 700px;
+            margin: 0 auto 34px;
+            color: var(--text-secondary);
+            font-size: 17px;
+            line-height: 2;
+            font-family: var(--font-gufeng);
+        }
+
+        .hero-subtitle strong { color: var(--text); }
+
+        .hero-image-wrap {
+            max-width: 850px;
+            margin: 0 auto 52px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.025);
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.35);
+        }
+
+        .hero-image-wrap img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .hero-image-caption {
+            padding: 14px 0 4px;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-family: var(--font-gufeng);
+            font-size: 13px;
+            letter-spacing: 4px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 52px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 46px;
+            padding: 0 26px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: var(--font-gufeng);
+            letter-spacing: 2px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn:hover { transform: translateY(-2px); }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.20);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.07); }
+
+        /* ========================= API Preview ========================= */
+
+        .api-preview {
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: left;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.025);
+            overflow: hidden;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.35);
+        }
+
+        .api-header {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .window-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            margin-right: 7px;
+            background: #52525b;
+        }
+
+        .api-url {
+            margin-left: 12px;
+            color: var(--text-tertiary);
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .api-code {
+            padding: 24px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+            font-size: 13px;
+            line-height: 1.9;
+            color: #d4d4d8;
+            overflow-x: auto;
+        }
+
+        .code-method { color: #a78bfa; }
+        .code-url { color: #67e8f9; }
+        .code-key { color: #93c5fd; }
+        .code-value { color: #86efac; }
+
+        /* ========================= Model Strip ========================= */
+
+        .model-strip {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 30px 0;
+        }
+
+        .model-strip-title {
+            text-align: center;
+            color: var(--text-tertiary);
+            font-family: var(--font-gufeng);
+            font-size: 14px;
+            letter-spacing: 4px;
+            margin-bottom: 22px;
+        }
+
+        .model-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .model-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border: 1px solid var(--border-light);
+            border-radius: 7px;
+            background: rgba(255, 255, 255, 0.025);
+            color: #d4d4d8;
+            font-size: 13px;
+        }
+
+        .model-icon {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--purple);
+        }
+
+        /* ========================= Section ========================= */
+
+        section { padding: 120px 0; }
+
+        .section-header {
+            max-width: 700px;
+            margin-bottom: 55px;
+        }
+
+        .section-label {
+            color: var(--cyan);
+            font-family: var(--font-gufeng);
+            font-size: 13px;
+            letter-spacing: 4px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            font-family: var(--font-gufeng);
+            font-size: clamp(32px, 4vw, 50px);
+            line-height: 1.3;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-family: var(--font-gufeng);
+            font-size: 16px;
+            line-height: 2;
+        }
+
+        /* ========================= Steps ========================= */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid var(--border);
+            border-left: 1px solid var(--border);
+        }
+
+        .step {
+            min-height: 280px;
+            padding: 34px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            transition: background 0.25s ease;
+        }
+
+        .step:hover { background: rgba(255, 255, 255, 0.045); }
+
+        .step-number {
+            color: var(--purple);
+            font-family: monospace;
+            font-size: 13px;
+            margin-bottom: 55px;
+        }
+
+        .step h3 {
+            font-family: var(--font-gufeng);
+            font-size: 22px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-family: var(--font-gufeng);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        /* ========================= Models ========================= */
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .model-card {
+            padding: 26px;
+            min-height: 170px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.025);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .model-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .model-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .model-brand {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .model-status {
+            font-size: 11px;
+            color: var(--green);
+            font-family: var(--font-gufeng);
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: rgba(52, 211, 153, 0.07);
+            border: 1px solid rgba(52, 211, 153, 0.18);
+        }
+
+        .model-card h3 {
+            font-family: var(--font-gufeng);
+            font-size: 19px;
+            letter-spacing: 1px;
+            margin-bottom: 7px;
+        }
+
+        .model-card p {
+            color: var(--text-secondary);
+            font-family: var(--font-gufeng);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* ========================= Features ========================= */
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .feature-card {
+            padding: 28px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.025);
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            width: 38px; height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(59, 130, 246, 0.10));
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+            font-size: 15px;
+            font-family: var(--font-gufeng);
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-gufeng);
+            font-size: 17px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-family: var(--font-gufeng);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* ========================= Quick Start ========================= */
+
+        .quick-start {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .quick-start-copy { max-width: 480px; }
+
+        .quick-start-copy p {
+            color: var(--text-secondary);
+            font-family: var(--font-gufeng);
+            font-size: 15px;
+            line-height: 2;
+            margin-bottom: 25px;
+        }
+
+        .quick-start-list { list-style: none; }
+
+        .quick-start-list li {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            color: var(--text-secondary);
+            font-family: var(--font-gufeng);
+            font-size: 14px;
+            margin-bottom: 13px;
+        }
+
+        .check {
+            width: 20px; height: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(52, 211, 153, 0.10);
+            color: var(--green);
+            font-size: 11px;
+        }
+
+        /* ========================= Code Panel with Tabs ========================= */
+
+        .code-panel {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #0c0c0f;
+        }
+
+        .code-tabs {
+            display: flex;
+            gap: 6px;
+            padding: 10px 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-tab {
+            padding: 9px 16px;
+            color: var(--text-tertiary);
+            font-size: 13px;
+            font-family: var(--font-gufeng);
+            letter-spacing: 1px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            background: transparent;
+            transition: color 0.2s ease, background 0.2s ease;
+            user-select: none;
+        }
+
+        .code-tab:hover { color: var(--text-secondary); }
+
+        .code-tab.active {
+            color: var(--text);
+            background: #131316;
+            border-color: var(--border);
+            position: relative;
+        }
+
+        .code-tab.active::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: -1px;
+            height: 1px;
+            background: #131316;
+        }
+
+        .code-pane { display: none; }
+
+        .code-pane.active { display: block; }
+
+        .code-content {
+            padding: 24px;
+            font-family: "SFMono-Regular", Consolas, monospace;
+            font-size: 12px;
+            line-height: 1.9;
+            overflow-x: auto;
+        }
+
+        .purple { color: #c4b5fd; }
+        .blue { color: #93c5fd; }
+        .green { color: #86efac; }
+        .gray { color: #71717a; }
+
+        /* ========================= CC Switch Section ========================= */
+
+        .ccswitch-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .ccswitch-config {
+            margin-top: 40px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #0c0c0f;
+        }
+
+        .ccswitch-config .config-title {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-family: var(--font-gufeng);
+            font-size: 14px;
+            letter-spacing: 2px;
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .ccswitch-config .code-content { padding: 22px; }
+
+        /* ========================= Bottom CTA / Footer ========================= */
+
+        .bottom-cta {
+            padding: 130px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: radial-gradient(circle at 50% 100%, rgba(124, 58, 237, 0.10), transparent 40%);
+        }
+
+        .bottom-cta h2 {
+            font-family: var(--font-gufeng);
+            font-size: clamp(34px, 5vw, 60px);
+            line-height: 1.3;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .bottom-cta p {
+            color: var(--text-secondary);
+            font-family: var(--font-gufeng);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        footer { padding: 40px 0; }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-tertiary);
+            font-family: var(--font-gufeng);
+            letter-spacing: 1px;
+            font-size: 13px;
+        }
+
+        /* ========================= Responsive ========================= */
+
+        @media (max-width: 900px) {
+            .steps, .ccswitch-steps { grid-template-columns: 1fr; }
+            .models-grid { grid-template-columns: repeat(2, 1fr); }
+            .feature-grid { grid-template-columns: repeat(2, 1fr); }
+            .quick-start { grid-template-columns: 1fr; gap: 45px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero { padding: 50px 0 80px; min-height: auto; }
+            .hero h1 { letter-spacing: 1px; }
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 280px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .models-grid, .feature-grid { grid-template-columns: 1fr; }
+            section { padding: 80px 0; }
+            .bottom-cta { padding: 90px 0; }
+            .footer-content { flex-direction: column; gap: 10px; }
+        }
+
+        /* Native controls work inside New API's sanitized custom pages. */
+        .gateway-page { overflow-wrap: anywhere; }
+        .gateway-page a:focus-visible, .gateway-page input:focus-visible + label {
+            outline: 2px solid #a78bfa; outline-offset: 5px;
+        }
+        .code-panel, .quick-start-copy, .api-preview { min-width: 0; }
+        .code-radio { position: absolute; width: 1px; height: 1px; opacity: 0; }
+        .code-tabs { flex-wrap: wrap; padding-bottom: 10px; }
+        .code-tab { border-bottom: 1px solid transparent; border-radius: 6px; }
+        .code-radio:checked + .code-tab { color: #f5f5f7; background: #252033; border-color: #8b5cf6; }
+        .code-radio:focus-visible + .code-tab { outline: 2px solid #a78bfa; outline-offset: 3px; }
+        .code-panel:has(#code-python:checked) [data-pane="python"],
+        .code-panel:has(#code-nodejs:checked) [data-pane="nodejs"],
+        .code-panel:has(#code-curl:checked) [data-pane="curl"] { display: block; }
+        .code-content { white-space: pre; margin: 0; text-align: left; color: #c4b5fd; }
+        .code-note { padding: 14px 24px; color: #a1a1aa; font-size: 12px; border-top: 1px solid var(--border); }
+        .api-url { overflow-wrap: anywhere; min-width: 0; }
+        .hero-image-wrap img { width: 100%; height: auto; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+        }
+
+        /* Keep the fixed application navigation readable above a dark page. */
+        .gateway-page::before {
+            content: "";
+            position: fixed;
+            inset: 0 0 auto;
+            height: 72px;
+            z-index: 40;
+            pointer-events: none;
+            background: rgba(250, 250, 252, 0.97);
+            border-bottom: 1px solid rgba(127, 127, 140, 0.16);
+            backdrop-filter: blur(16px);
+        }
+        .dark .gateway-page::before { background: rgba(9, 9, 11, 0.96); }
+    </style>
+</head>
+
+
+<body>
+<div class="gateway-page">
+
+<main>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+
+                <div class="hero-badge gufeng">
+                    <span class="status-dot"></span>
+                    骋怀 · 万模之门
+                </div>
+
+                <div class="hero-quote">
+                    —— 仰观宇宙之大，俯察品类之盛 ——
+                </div>
+
+                <h1>
+                    一钥启万象
+                    <br>
+                    <span class="gradient-text">骋怀天下模</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    骋怀者，取意兰亭，<strong>游目骋怀，足以极视听之娱</strong>。
+                    今集天下名模于一门，虽无丝竹管弦之盛，
+                    然一觞一咏，代码之间，亦足以畅叙幽情。
+                </p>
+
+                <div class="hero-actions">
+                    <a href="/dashboard/overview" class="btn btn-primary">执钥入门</a>
+                    <a href="/pricing" class="btn btn-secondary">阅尽群模</a>
+                </div>
+
+                <div class="hero-image-wrap">
+                    <img decoding="async" src="{{CHENGHUAI_IMAGE_DATA_URI}}" alt="骋怀 · 游目骋怀，极视听之娱">
+                    <div class="hero-image-caption">游目骋怀 · 极视听之娱</div>
+                </div>
+
+                <div class="api-preview">
+                    <div class="api-header">
+                        <span class="window-dot"></span>
+                        <span class="window-dot"></span>
+                        <span class="window-dot"></span>
+                        <span class="api-url">{{GATEWAY_HOST}}/v1/chat/completions</span>
+                    </div>
+                    <div class="api-code">
+                        <span class="code-method">POST</span>
+                        <span class="code-url">{{GATEWAY_ORIGIN}}/v1/chat/completions</span>
+                        <br><br>
+                        {
+                        <br>
+                        &nbsp;&nbsp;<span class="code-key">"model"</span>: <span class="code-value">"your-enabled-model"</span>,
+                        <br>
+                        &nbsp;&nbsp;<span class="code-key">"messages"</span>: [
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;{
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"role"</span>: <span class="code-value">"user"</span>,
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"content"</span>: <span class="code-value">"Hello AI"</span>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}
+                        <br>
+                        &nbsp;&nbsp;]
+                        <br>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MODEL STRIP -->
+    <div class="model-strip">
+        <div class="container">
+            <div class="model-strip-title">群贤毕至 · 众模咸集</div>
+            <div class="model-list">
+                <div class="model-pill"><span class="model-icon"></span>GPT</div>
+                <div class="model-pill"><span class="model-icon"></span>Claude</div>
+                <div class="model-pill"><span class="model-icon"></span>Gemini</div>
+                <div class="model-pill"><span class="model-icon"></span>DeepSeek</div>
+                <div class="model-pill"><span class="model-icon"></span>Qwen</div>
+                <div class="model-pill"><span class="model-icon"></span>GLM</div>
+                <div class="model-pill"><span class="model-icon"></span>诸子百家 · 不一而足</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOW TO CONNECT -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">入门之道 · 壹</div>
+                <h2 class="section-title">
+                    三步而立
+                    <span class="gradient-text">驰骋乃始</span>
+                </h2>
+                <p class="section-desc">
+                    昔王右军兰亭雅集，一觞一咏，畅叙幽情。
+                    今骋怀立三步之约，无需遍学诸厂接口，
+                    执钥、择模、驰骋，顷刻功成。
+                </p>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">壹 · 立钥</div>
+                    <h3>执钥为凭</h3>
+                    <p>注册骋怀之籍，铸 API Key 一枚。一钥在手，凡授权之模，皆可叩门而入。</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">贰 · 择模</div>
+                    <h3>择善而从</h3>
+                    <p>至模型之庭，览通用、推理、多模态诸家，如临兰亭，群贤毕至，择其善者而用之。</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">叁 · 驰骋</div>
+                    <h3>骋怀驰骋</h3>
+                    <p>循统一之门发起请求，旧业架构，分毫不改，而万模之力，已为君所用。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODELS -->
+    <section id="models">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">群模之林 · 贰</div>
+                <h2 class="section-title">
+                    一门之内
+                    <br>
+                    <span class="gradient-text">众流归海</span>
+                </h2>
+                <p class="section-desc">
+                    因事择模，各取所长。骋怀总揽接入与管理之务，
+                    君但潜心于应用，余事皆付我们。
+                </p>
+            </div>
+
+            <div class="models-grid">
+                <div class="model-card">
+                    <div class="model-card-top">
+                        <span class="model-brand">OpenAI</span>
+                        <span class="model-status">可用</span>
+                    </div>
+                    <h3>GPT 诸系</h3>
+                    <p>对话、代码、推理、多模态，无所不包</p>
+                </div>
+                <div class="model-card">
+                    <div class="model-card-top">
+                        <span class="model-brand">Anthropic</span>
+                        <span class="model-status">可用</span>
+                    </div>
+                    <h3>Claude 诸系</h3>
+                    <p>长卷千言，繁务细理，从容应对</p>
+                </div>
+                <div class="model-card">
+                    <div class="model-card-top">
+                        <span class="model-brand">Google</span>
+                        <span class="model-status">可用</span>
+                    </div>
+                    <h3>Gemini 诸系</h3>
+                    <p>声色并察，长文纵览，生成自如</p>
+                </div>
+                <div class="model-card">
+                    <div class="model-card-top">
+                        <span class="model-brand">DeepSeek</span>
+                        <span class="model-status">可用</span>
+                    </div>
+                    <h3>DeepSeek 诸系</h3>
+                    <p>深思推理，妙笔成章，代码娴熟</p>
+                </div>
+                <div class="model-card">
+                    <div class="model-card-top">
+                        <span class="model-brand">Alibaba</span>
+                        <span class="model-status">可用</span>
+                    </div>
+                    <h3>Qwen 诸系</h3>
+                    <p>通晓中文，兼修多模态，善作代码</p>
+                </div>
+                <div class="model-card">
+                    <div class="model-card-top">
+                        <span class="model-brand">Zhipu AI</span>
+                        <span class="model-status">可用</span>
+                    </div>
+                    <h3>GLM 诸系</h3>
+                    <p>深谙中文情境，通用应用两相宜</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API FEATURES -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">网关之能 · 叁</div>
+                <h2 class="section-title">
+                    不止聚模
+                    <br>
+                    <span class="gradient-text">乃智能之基</span>
+                </h2>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon gufeng">一</div>
+                    <h3>统一之门</h3>
+                    <p>一门通万模，切换从容自如，接入之费，化为乌有。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon gufeng">智</div>
+                    <h3>智慧择路</h3>
+                    <p>度才、量价、审迟速，择路而行，恰如其分。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon gufeng">度</div>
+                    <h3>量入为出</h3>
+                    <p>Token 之耗、调用之数、模型之费，尽收一册。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon gufeng">察</div>
+                    <h3>明察秋毫</h3>
+                    <p>请求、应答、迟速、差错，实时可观，纤毫毕现。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK START (with real tabs) -->
+    <section id="quick-start">
+        <div class="container">
+            <div class="quick-start">
+                <div class="quick-start-copy">
+                    <div class="section-label">速成之道 · 肆</div>
+                    <h2 class="section-title">
+                        大道至简
+                        <span class="gradient-text">返璞归真</span>
+                    </h2>
+                    <p>
+                        君之应用，若已谙 OpenAI 之法，
+                        则入骋怀之门，唯易 Endpoint 与 Key 二处而已。
+                    </p>
+                    <ul class="quick-start-list">
+                        <li><span class="check">✓</span>兼容主流调用之法</li>
+                        <li><span class="check">✓</span>一钥统御诸模</li>
+                        <li><span class="check">✓</span>旧业代码，纹丝不动</li>
+                        <li><span class="check">✓</span>随心换模，运转如意</li>
+                    </ul>
+                </div>
+
+                <div class="code-panel" id="qs-code-panel">
+                    <div class="code-tabs" role="radiogroup" aria-label="接入示例语言">
+                        <input class="code-radio" type="radio" name="code-language" id="code-python" checked><label class="code-tab" for="code-python">Python</label>
+                        <input class="code-radio" type="radio" name="code-language" id="code-nodejs"><label class="code-tab" for="code-nodejs">Node.js</label>
+                        <input class="code-radio" type="radio" name="code-language" id="code-curl"><label class="code-tab" for="code-curl">cURL</label>
+                    </div>
+
+                    <!-- Python -->
+                    <div class="code-pane" data-pane="python">
+                        <pre class="code-content" tabindex="0" aria-label="python 接入示例"><code>import os
+from openai import OpenAI
+
+client = OpenAI(
+    api_key=os.environ[&quot;GATEWAY_API_KEY&quot;],
+    base_url=&quot;{{GATEWAY_ORIGIN}}/v1&quot;,
+)
+
+response = client.chat.completions.create(
+    model=&quot;your-enabled-model&quot;,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Hello!&quot;}],
+)
+print(response.choices[0].message.content)</code></pre>
+                        <p class="code-note">先将令牌保存为 GATEWAY_API_KEY 环境变量，再把 your-enabled-model 替换为已开通的模型名称。</p>
+                    </div>
+
+                    <!-- Node.js -->
+                    <div class="code-pane" data-pane="nodejs">
+                        <pre class="code-content" tabindex="0" aria-label="nodejs 接入示例"><code>import OpenAI from &quot;openai&quot;;
+
+const client = new OpenAI({
+  apiKey: process.env.GATEWAY_API_KEY,
+  baseURL: &quot;{{GATEWAY_ORIGIN}}/v1&quot;,
+});
+
+const response = await client.chat.completions.create({
+  model: &quot;your-enabled-model&quot;,
+  messages: [{ role: &quot;user&quot;, content: &quot;Hello!&quot; }],
+});
+console.log(response.choices[0].message.content);</code></pre>
+                        <p class="code-note">先将令牌保存为 GATEWAY_API_KEY 环境变量，再把 your-enabled-model 替换为已开通的模型名称。</p>
+                    </div>
+
+                    <!-- cURL -->
+                    <div class="code-pane" data-pane="curl">
+                        <pre class="code-content" tabindex="0" aria-label="curl 接入示例"><code>curl &#x27;{{GATEWAY_ORIGIN}}/v1/chat/completions&#x27; \
+  -H &quot;Authorization: Bearer ${GATEWAY_API_KEY}&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;your-enabled-model&quot;,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Hello!&quot;}]
+  }&#x27;</code></pre>
+                        <p class="code-note">先将令牌保存为 GATEWAY_API_KEY 环境变量，再把 your-enabled-model 替换为已开通的模型名称。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CC SWITCH -->
+    <section id="cc-switch">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label"> CC SWITCH · 伍</div>
+                <h2 class="section-title">
+                    借器之利
+                    <br>
+                    <span class="gradient-text">骋怀于 Claude Code</span>
+                </h2>
+                <p class="section-desc">
+                    CC Switch 者，CODE CLI 配置切换之利器也。
+                    三步接入骋怀，令 Claude Code、Codex、Gemini CLI
+                    皆得骋怀万模之力，攻守自如，进退有度。
+                </p>
+            </div>
+
+            <div class="ccswitch-steps">
+                <div class="step">
+                    <div class="step-number">壹 · 添供给</div>
+                    <h3>新增供应商</h3>
+                    <p>启 CC Switch，点「Add Provider」，择「Custom」自定之式，为骋怀立一席之地。</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">贰 · 填三要</div>
+                    <h3>填入钥与门</h3>
+                    <p>API Key 填骋怀之钥（sk-chenghuai-…），Base URL 填 {{GATEWAY_ORIGIN}}，模型随君所好。</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">叁 · 一键启</div>
+                    <h3>启用即驰骋</h3>
+                    <p>保存之后，点「Enable」一键切换，重启终端或 CLI，骋怀之门豁然洞开。</p>
+                </div>
+            </div>
+
+            <div class="ccswitch-config">
+                <div class="config-title">
+                    供应配置示例 · Provider Configuration
+                </div>
+                <div class="code-content">
+{
+  <span class="code-key">"name"</span>: <span class="code-value">"骋怀 AI Gateway"</span>,
+  <span class="code-key">"env"</span>: {
+    <span class="code-key">"ANTHROPIC_BASE_URL"</span>: <span class="code-value">"{{GATEWAY_ORIGIN}}"</span>,
+    <span class="code-key">"ANTHROPIC_AUTH_TOKEN"</span>: <span class="code-value">"sk-chenghuai-xxxxxxxx"</span>,
+    <span class="code-key">"ANTHROPIC_MODEL"</span>: <span class="code-value">"claude-sonnet-4-5"</span>,
+    <span class="code-key">"API_TIMEOUT_MS"</span>: <span class="code-value">"600000"</span>
+  }
+}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bottom-cta">
+        <div class="container">
+            <div class="hero-quote" style="margin-bottom: 14px;">
+                —— 天朗气清，惠风和畅 ——
+            </div>
+            <h2>
+                骋怀今日
+                <span class="gradient-text">信可乐也</span>
+            </h2>
+            <p>
+                一钥在手，万模骋怀。仰观宇宙，俯察品类，
+                与君共赴智能之盛，岂不美哉。
+            </p>
+            <div class="hero-actions">
+                <a href="/dashboard/overview" class="btn btn-primary">即刻入门</a>
+                <a href="/pricing" class="btn btn-secondary">阅尽群模</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <span>© 2026 安徽方控智能科技有限公司</span>
+            <span class="gufeng">仰观宇宙 · 俯察品类 · 游目骋怀 · 信可乐也</span>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+</div>
+</body>
+</html>

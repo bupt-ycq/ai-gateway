@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>关于方控智能 | 安徽方控智能科技有限公司</title>
+
+    <style>
+        .gateway-page {
+            --bg: #0a0a0c;
+            --card: rgba(255, 255, 255, 0.035);
+            --border: rgba(255, 255, 255, 0.10);
+            --text: #f5f5f7;
+            --text-secondary: #a1a1aa;
+            --purple: #8b5cf6;
+            --blue: #3b82f6;
+            --cyan: #22d3ee;
+            --green: #34d399;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .gateway-page {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "PingFang SC",
+                "Microsoft YaHei",
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(124, 58, 237, 0.10),
+                    transparent 35%
+                ),
+                var(--bg);
+
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================
+           Common Layout
+        ========================= */
+
+        .container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+        }
+
+        /*
+         * main 距离页面顶部保留 64px
+         */
+        main {
+            padding-top: 64px;
+        }
+
+        section {
+            padding: 120px 0;
+        }
+
+        .section-label {
+            color: var(--cyan);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4vw, 56px);
+            line-height: 1.15;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+        }
+
+        .section-desc {
+            max-width: 780px;
+            color: var(--text-secondary);
+            font-size: 17px;
+        }
+
+        /* =========================
+           Gradient Text
+           修复第一个字颜色太浅的问题
+        ========================= */
+
+        .gradient-text {
+            display: inline-block;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #7c3aed 0%,
+                    #8b5cf6 30%,
+                    #3b82f6 65%,
+                    #06b6d4 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+
+            filter:
+                drop-shadow(
+                    0 0 12px rgba(124, 58, 237, 0.18)
+                );
+        }
+
+        /* =========================
+           Hero
+        ========================= */
+
+        .hero {
+            min-height: 720px;
+            display: flex;
+            align-items: center;
+
+            /*
+             * main 已经有 64px 顶部间距，
+             * Hero 不再额外增加顶部空白
+             */
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 1050px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 60px 0 100px;
+        }
+
+        .company-name {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 28px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 12px var(--green);
+        }
+
+        .hero h1 {
+            font-size: clamp(50px, 8vw, 100px);
+            line-height: 1.05;
+            letter-spacing: -5px;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .hero-slogan {
+            font-size: clamp(20px, 2.5vw, 30px);
+            color: var(--cyan);
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .hero-desc {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 18px;
+            line-height: 1.9;
+        }
+
+        .hero-desc strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* =========================
+           Stats
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-item {
+            padding: 42px 30px;
+            border-right: 1px solid var(--border);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-value {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* =========================
+           About
+        ========================= */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 100px;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 17px;
+            margin-bottom: 24px;
+        }
+
+        .highlight {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* =========================
+           Brand Concept
+        ========================= */
+
+        .brand-concept {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-top: 60px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .brand-item {
+            padding: 40px;
+        }
+
+        .brand-item:first-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .brand-word {
+            font-size: 72px;
+            line-height: 1;
+            font-weight: 700;
+            margin-bottom: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #7c3aed 0%,
+                    #8b5cf6 45%,
+                    #3b82f6 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .brand-item h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .brand-item p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* =========================
+           Capability
+        ========================= */
+
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border-top: 1px solid var(--border);
+            border-left: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .capability-card {
+            min-height: 250px;
+            padding: 36px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--card);
+            transition:
+                background 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        .capability-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-3px);
+        }
+
+        .card-number {
+            color: var(--purple);
+            font-size: 13px;
+            margin-bottom: 40px;
+            font-family: monospace;
+        }
+
+        .capability-card h3 {
+            font-size: 22px;
+            margin-bottom: 14px;
+        }
+
+        .capability-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* =========================
+           Platform Table
+        ========================= */
+
+        .table-wrapper {
+            margin-top: 60px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th {
+            text-align: left;
+            padding: 20px 24px;
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:first-child {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(34, 211, 238, 0.25);
+            background: rgba(34, 211, 238, 0.06);
+            color: var(--cyan);
+            font-size: 12px;
+        }
+
+        /* =========================
+           Vision
+        ========================= */
+
+        .vision {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            padding: 150px 0;
+        }
+
+        .vision h2 {
+            max-width: 1050px;
+            margin: 0 auto;
+            font-size: clamp(36px, 5vw, 72px);
+            line-height: 1.25;
+            letter-spacing: -3px;
+        }
+
+        .vision-slogan {
+            margin: 30px auto;
+            font-size: clamp(20px, 3vw, 32px);
+            color: var(--cyan);
+            letter-spacing: 3px;
+        }
+
+        .vision p {
+            max-width: 760px;
+            margin: 32px auto 0;
+            color: var(--text-secondary);
+            font-size: 17px;
+        }
+
+        .vision p strong {
+            color: var(--text);
+        }
+
+        /* =========================
+           Footer
+        ========================= */
+
+        footer {
+            padding: 48px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* =========================
+           Responsive
+        ========================= */
+
+        @media (max-width: 900px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .capability-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding-top: 64px;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            .hero {
+                min-height: 650px;
+                padding-top: 40px;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .stat-item:last-child {
+                border-bottom: none;
+            }
+
+            .brand-concept {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-item:first-child {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        /* Keep the fixed application navigation readable above a dark page. */
+        .gateway-page::before {
+            content: "";
+            position: fixed;
+            inset: 0 0 auto;
+            height: 72px;
+            z-index: 40;
+            pointer-events: none;
+            background: rgba(250, 250, 252, 0.97);
+            border-bottom: 1px solid rgba(127, 127, 140, 0.16);
+            backdrop-filter: blur(16px);
+        }
+        .dark .gateway-page::before { background: rgba(9, 9, 11, 0.96); }
+    </style>
+</head>
+
+<body>
+<div class="gateway-page">
+
+    <main>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+
+                    <div class="company-name">
+                        安徽方控智能科技有限公司
+                    </div>
+
+                    <div class="hero-tag">
+                        <span class="status-dot"></span>
+                        AI APPLICATION · MODEL GATEWAY
+                    </div>
+
+                    <h1>
+                        <span class="gradient-text">
+                            方聚 AI 能力
+                        </span>
+                        <br>
+                        控驭智能未来
+                    </h1>
+
+                    <div class="hero-slogan">
+                        One Gateway. Every Model.
+                    </div>
+
+                    <p class="hero-desc">
+                        安徽方控智能科技有限公司是一家专注于
+                        <strong>AI 应用与模型网关基础设施</strong>
+                        的专业科技公司。
+                        <br><br>
+                        我们致力于汇聚全球领先的 AI 模型与智能能力，
+                        通过统一的 AI Gateway、智能模型路由、
+                        流量调度、成本治理与 AI 应用开发能力，
+                        帮助企业降低多模型接入和管理的复杂度。
+                        <br><br>
+                        <strong>
+                            方聚 AI 能力，控驭智能未来。
+                        </strong>
+                        我们希望让每一个企业和开发者，
+                        都能够通过一个统一入口，
+                        高效连接全球 AI 能力，
+                        专注于创造真正有价值的 AI 应用。
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Stats -->
+        <div class="container">
+            <div class="stats">
+
+                <div class="stat-item">
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">可接入 AI 模型</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-value">10+</div>
+                    <div class="stat-label">模型与云服务提供商</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">统一 AI Gateway</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">AI 应用创新可能</div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- About -->
+        <section id="about">
+            <div class="container">
+
+                <div class="about-grid">
+
+                    <div>
+                        <div class="section-label">
+                            ABOUT FANGKONG / 01
+                        </div>
+
+                        <h2 class="section-title">
+                            方聚全球 AI 能力
+                            <br>
+                            <span class="gradient-text">
+                                控驭企业智能未来
+                            </span>
+                        </h2>
+                    </div>
+
+                    <div class="about-text">
+
+                        <p>
+                            <span class="highlight">
+                                “方控”，代表汇聚与掌控。
+                            </span>
+                            “方”意味着连接多方技术能力、汇聚全球领先模型、
+                            打破不同 AI 平台之间的技术边界；
+                            “控”意味着统一管理、智能调度、成本优化与安全治理，
+                            让复杂的 AI 能力真正处于企业可控范围之内。
+                        </p>
+
+                        <p>
+                            随着大语言模型、多模态模型、推理模型
+                            和行业垂直模型的快速发展，
+                            企业正在从“使用单一模型”进入
+                            <span class="highlight">“多模型协同”</span>
+                            的新时代。
+                        </p>
+
+                        <p>
+                            安徽方控智能科技有限公司专注于解决企业在
+                            多模型接入、统一 API 管理、智能模型选择、
+                            流量调度、Token 成本优化与 AI 应用开发过程中
+                            面临的复杂技术问题。
+                        </p>
+
+                        <p>
+                            我们不仅提供模型 API 聚合服务，
+                            更致力于构建企业的
+                            <span class="highlight">
+                                AI 流量统一入口、
+                                模型智能调度中心、
+                                成本治理中心
+                            </span>
+                            与下一代 AI 应用基础设施。
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <!-- Brand Concept -->
+                <div class="brand-concept">
+
+                    <div class="brand-item">
+                        <div class="brand-word">方</div>
+
+                        <h3>汇聚 · 连接 · 开放</h3>
+
+                        <p>
+                            汇聚全球领先 AI 模型与智能能力，
+                            连接模型、平台、开发者与企业业务场景，
+                            构建开放的 AI 能力生态。
+                        </p>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-word">控</div>
+
+                        <h3>治理 · 调度 · 掌控</h3>
+
+                        <p>
+                            通过统一网关、智能路由、流量管理、
+                            成本优化与安全治理，
+                            让企业真正掌控每一次 AI 调用。
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Core Capability -->
+        <section id="capability">
+            <div class="container">
+
+                <div class="section-label">
+                    CORE CAPABILITIES / 02
+                </div>
+
+                <h2 class="section-title">
+                    从汇聚 AI 到智能掌控
+                    <br>
+                    <span class="gradient-text">
+                        构建企业级 AI 基础设施
+                    </span>
+                </h2>
+
+                <p class="section-desc">
+                    围绕“方聚”与“智控”两大核心能力，
+                    方控智能构建从模型接入、统一网关、
+                    智能路由到成本治理与 AI 应用开发的一体化平台。
+                </p>
+
+
+                <div class="capability-grid">
+
+                    <div class="capability-card">
+                        <div class="card-number">
+                            01 / MODEL ACCESS
+                        </div>
+
+                        <h3>
+                            方聚 · 多模型统一接入
+                        </h3>
+
+                        <p>
+                            汇聚全球主流大语言模型、多模态模型与推理模型，
+                            通过统一 API 降低企业多模型集成成本。
+                        </p>
+                    </div>
+
+
+                    <div class="capability-card">
+                        <div class="card-number">
+                            02 / AI GATEWAY
+                        </div>
+
+                        <h3>
+                            方控 · 统一 AI 网关
+                        </h3>
+
+                        <p>
+                            提供统一鉴权、API 管理、请求转发、
+                            限流、负载均衡与高可用能力，
+                            成为企业统一的 AI 流量入口。
+                        </p>
+                    </div>
+
+
+                    <div class="capability-card">
+                        <div class="card-number">
+                            03 / SMART ROUTING
+                        </div>
+
+                        <h3>
+                            智能模型路由
+                        </h3>
+
+                        <p>
+                            根据任务类型、模型能力、响应速度、
+                            调用成本与服务可用性，
+                            自动选择更合适的 AI 模型。
+                        </p>
+                    </div>
+
+
+                    <div class="capability-card">
+                        <div class="card-number">
+                            04 / COST GOVERNANCE
+                        </div>
+
+                        <h3>
+                            AI 成本治理
+                        </h3>
+
+                        <p>
+                            对 Token 消耗、模型费用、用户用量
+                            与项目预算进行统一监控，
+                            持续优化企业 AI 使用成本。
+                        </p>
+                    </div>
+
+
+                    <div class="capability-card">
+                        <div class="card-number">
+                            05 / OBSERVABILITY
+                        </div>
+
+                        <h3>
+                            AI 可观测性
+                        </h3>
+
+                        <p>
+                            实时追踪模型调用性能、响应延迟、
+                            错误信息、Token 消耗与成本，
+                            建立完整的 AI 运行分析体系。
+                        </p>
+                    </div>
+
+
+                    <div class="capability-card">
+                        <div class="card-number">
+                            06 / AI APPLICATION
+                        </div>
+
+                        <h3>
+                            AI 应用加速平台
+                        </h3>
+
+                        <p>
+                            为 Agent、企业 Copilot、智能客服
+                            与行业 AI 应用提供统一的模型能力底座，
+                            加速 AI 产品从创新到规模化落地。
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Platform -->
+        <section id="platform">
+            <div class="container">
+
+                <div class="section-label">
+                    FANGKONG AI PLATFORM / 03
+                </div>
+
+                <h2 class="section-title">
+                    一个平台
+                    <span class="gradient-text">
+                        连接与掌控全部 AI 能力
+                    </span>
+                </h2>
+
+                <p class="section-desc">
+                    方控 AI 平台将底层复杂的模型能力进行标准化、
+                    平台化与智能化，让企业无需关心不同模型之间的技术差异，
+                    即可通过统一入口灵活使用全球 AI 能力。
+                </p>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>能力层</th>
+                                <th>方控核心能力</th>
+                                <th>解决的问题</th>
+                                <th>企业价值</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>方聚 Model Layer</td>
+
+                                <td>
+                                    <span class="tag">
+                                        多模型聚合
+                                    </span>
+                                </td>
+
+                                <td>
+                                    不同模型 API 和协议不统一
+                                </td>
+
+                                <td>
+                                    一个接口连接多个模型
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>方控 Gateway Layer</td>
+
+                                <td>
+                                    <span class="tag">
+                                        AI Gateway
+                                    </span>
+                                </td>
+
+                                <td>
+                                    模型调用分散、管理复杂
+                                </td>
+
+                                <td>
+                                    企业统一 AI 流量入口
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Smart Routing Layer</td>
+
+                                <td>
+                                    <span class="tag">
+                                        智能模型路由
+                                    </span>
+                                </td>
+
+                                <td>
+                                    模型选择依赖人工判断
+                                </td>
+
+                                <td>
+                                    自动匹配更合适的模型
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Governance Layer</td>
+
+                                <td>
+                                    <span class="tag">
+                                        成本与权限治理
+                                    </span>
+                                </td>
+
+                                <td>
+                                    Token 消耗不可控
+                                </td>
+
+                                <td>
+                                    企业级 AI 成本与安全治理
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>AI Application Layer</td>
+
+                                <td>
+                                    <span class="tag">
+                                        AI Application
+                                    </span>
+                                </td>
+
+                                <td>
+                                    AI 应用开发周期长
+                                </td>
+
+                                <td>
+                                    加速 AI 产品创新与落地
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Vision -->
+        <section id="vision" class="vision">
+            <div class="container">
+
+                <div class="section-label">
+                    OUR VISION / 04
+                </div>
+
+                <h2>
+                    方聚 AI 能力
+                    <br>
+                    <span class="gradient-text">
+                        控驭智能未来
+                    </span>
+                </h2>
+
+                <div class="vision-slogan">
+                    One Gateway. Every Model.
+                </div>
+
+                <p>
+                    我们相信，未来的企业不会只使用一个 AI 模型。
+                    AI 将成为企业的新型基础设施，
+                    不同的业务场景将需要不同模型与智能能力协同工作。
+                    <br><br>
+                    安徽方控智能科技有限公司希望成为企业进入 AI 世界的
+                    <strong>统一入口与智能控制中心。</strong>
+                    <br><br>
+                    通过“方”的连接与汇聚，
+                    以及“控”的治理与掌控，
+                    我们将复杂的 AI 世界转化为简单、稳定、
+                    智能且可规模化的基础能力。
+                </p>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div>
+                    © 2026 安徽方控智能科技有限公司
+                </div>
+
+                <div>
+                    方聚 AI 能力 · 控驭智能未来
+                </div>
+
+            </div>
+
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>

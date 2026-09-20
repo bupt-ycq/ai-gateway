@@ -1,0 +1,35 @@
+services:
+  new-api:
+    environment:
+      SESSION_COOKIE_SECURE: "true"
+      SESSION_COOKIE_TRUSTED_URL: https://${GATEWAY_DOMAIN:?Set GATEWAY_DOMAIN in .env}
+      TRUSTED_PROXIES: 172.30.89.2
+    networks:
+      default:
+        ipv4_address: 172.30.89.3
+
+  caddy:
+    image: caddy:2.10.2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      GATEWAY_DOMAIN: ${GATEWAY_DOMAIN:?Set GATEWAY_DOMAIN in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./caddy/data:/data
+      - ./caddy/config:/config
+    depends_on:
+      new-api:
+        condition: service_healthy
+    networks:
+      default:
+        ipv4_address: 172.30.89.2
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.30.89.0/24
