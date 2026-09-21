@@ -10,3 +10,9 @@ docs
 /web/node_modules
 /web/dist
 !THIRD-PARTY-LICENSES.md
+.local/
+**/.env
+**/.env.*
+deploy/chenghuai/data/
+deploy/chenghuai/caddy/
+deploy/chenghuai/backups/

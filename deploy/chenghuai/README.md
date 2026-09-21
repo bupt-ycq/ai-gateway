@@ -1,5 +1,7 @@
 # 骋怀AI模型网关部署
 
+阿里云 ECS 从登录、私有仓库下载到公网访问、HTTPS 和备份的逐步操作，见 [阿里云部署复现手册](ALIYUN-REPRODUCE.md)。手册区分已确认的部署进度与待验证步骤。
+
 基于 [QuantumNous/new-api](https://github.com/QuantumNous/new-api) 的 `v1.0.0-rc.23`，与参考站公开报告的版本一致。使用原项目完整前后端，通过官方设置接口应用“骋怀AI模型网关”的站点名称、页脚和公开展示设置；保留 New API、QuantumNous 的来源及许可信息。
 
 首页和“关于”页以参考站 `https://llmgw.chenghuai.xin/` 的公开页面为基础，源码保存在 `assets/home.html`、`assets/about.html`。品牌 Logo 和首页配图保存在本地，并由初始化脚本嵌入页面数据，部署后不依赖参考站提供图片。首页代码切换使用可通过 New API HTML 清理的原生控件，页面链接指向新站，并限定背景样式的作用范围，避免影响控制台。界面以桌面浏览器体验为主。
