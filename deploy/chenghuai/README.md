@@ -1,5 +1,7 @@
 # 骋怀AI模型网关部署
 
+2026-09-21 后续构建排障、初始化和公网 3000 端口配置的实际记录，见 [部署与公网访问操作手册](chenghuai-gateway-deployment.md)。
+
 阿里云 ECS 从登录、私有仓库下载到公网访问、HTTPS 和备份的逐步操作，见 [阿里云部署复现手册](ALIYUN-REPRODUCE.md)。手册区分已确认的部署进度与待验证步骤。
 
 基于 [QuantumNous/new-api](https://github.com/QuantumNous/new-api) 的 `v1.0.0-rc.23`，与参考站公开报告的版本一致。使用原项目完整前后端，通过官方设置接口应用“骋怀AI模型网关”的站点名称、页脚和公开展示设置；保留 New API、QuantumNous 的来源及许可信息。
